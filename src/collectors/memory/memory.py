@@ -23,21 +23,29 @@ try:
 except ImportError:
     psutil = None
 
+# _KEY_MAPPING = [
+#     'MemTotal',
+#     'MemFree',
+#     'Buffers',
+#     'Cached',
+#     'Active',
+#     'Dirty',
+#     'Inactive',
+#     'Shmem',
+#     'SwapTotal',
+#     'SwapFree',
+#     'SwapCached',
+#     'VmallocTotal',
+#     'VmallocUsed',
+#     'VmallocChunk'
+# ]
+
 _KEY_MAPPING = [
     'MemTotal',
     'MemFree',
     'Buffers',
     'Cached',
-    'Active',
-    'Dirty',
-    'Inactive',
-    'Shmem',
-    'SwapTotal',
-    'SwapFree',
-    'SwapCached',
-    'VmallocTotal',
-    'VmallocUsed',
-    'VmallocChunk'
+    'SwapFree'
 ]
 
 

@@ -53,11 +53,11 @@ class LoadAverageCollector(diamond.collector.Collector):
 
         # Legacy: add process/thread counters provided by
         # /host_proc/loadavg (if available).
-        if os.access(self.PROC_LOADAVG, os.R_OK):
-            file = open(self.PROC_LOADAVG)
-            for line in file:
-                match = self.PROC_LOADAVG_RE.match(line)
-                if match:
-                    self.publish_gauge('processes_running', int(match.group(4)))
-                    self.publish_gauge('processes_total', int(match.group(5)))
-            file.close()
+        #if os.access(self.PROC_LOADAVG, os.R_OK):
+        #    file = open(self.PROC_LOADAVG)
+        #    for line in file:
+        #        match = self.PROC_LOADAVG_RE.match(line)
+        #        if match:
+        #            self.publish_gauge('processes_running', int(match.group(4)))
+        #            self.publish_gauge('processes_total', int(match.group(5)))
+        #    file.close()
