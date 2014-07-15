@@ -2,11 +2,11 @@
 
 """
 The InterruptCollector class collects metrics on interrupts from
-/proc/interrupts
+/host_proc/interrupts
 
 #### Dependencies
 
- * /proc/interrupts
+ * /host_proc/interrupts
 
 """
 
@@ -27,7 +27,7 @@ else:
 
 class InterruptCollector(diamond.collector.Collector):
 
-    PROC = '/proc/interrupts'
+    PROC = '/host_proc/interrupts'
 
     def get_default_config_help(self):
         config_help = super(InterruptCollector, self).get_default_config_help()

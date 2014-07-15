@@ -1,11 +1,11 @@
 # coding=utf-8
 
 """
-Uses /proc/mounts and os.statvfs() to get disk space usage
+Uses /host_proc/mounts and os.statvfs() to get disk space usage
 
 #### Dependencies
 
- * /proc/mounts
+ * /host_proc/mounts
 
 #### Examples
 
@@ -123,8 +123,8 @@ class DiskSpaceCollector(diamond.collector.Collector):
           (major, minor) -> FileSystem(device, mount_point)
         """
         result = {}
-        if os.access('/proc/mounts', os.R_OK):
-            file = open('/proc/mounts')
+        if os.access('/host_proc/mounts', os.R_OK):
+            file = open('/host_proc/mounts')
             for line in file:
                 try:
                     mount = line.split()
@@ -149,7 +149,7 @@ class DiskSpaceCollector(diamond.collector.Collector):
                     continue
 
                 if (mount_point.startswith('/dev')
-                    or mount_point.startswith('/proc')
+                    or mount_point.startswith('/host_proc')
                         or mount_point.startswith('/sys')):
                     continue
 

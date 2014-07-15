@@ -1,14 +1,14 @@
 # coding=utf-8
 """
 The function of MountStatsCollector is to parse the detailed per-mount NFS
-performance statistics provided by `/proc/self/mountstats` (reads, writes,
+performance statistics provided by `/host_proc/self/mountstats` (reads, writes,
 remote procedure call count/latency, etc.) and provide counters to Diamond.
 Filesystems may be included/excluded using a regular expression filter,
 like the existing disk check collectors.
 
 #### Dependencies
 
- * /proc/self/mountstats
+ * /host_proc/self/mountstats
 
 """
 
@@ -20,7 +20,7 @@ import diamond.collector
 
 
 class MountStatsCollector(diamond.collector.Collector):
-    """Diamond collector for statistics from /proc/self/mountstats
+    """Diamond collector for statistics from /host_proc/self/mountstats
     """
 
     BYTES_MAP = ['normalreadbytes', 'normalwritebytes', 'directreadbytes',
@@ -54,7 +54,7 @@ class MountStatsCollector(diamond.collector.Collector):
                 'SETCLIENTID', 'SETCLIENTID_CONFIRM', 'STATFS', 'SYMLINK',
                 'WRITE']
 
-    MOUNTSTATS = '/proc/self/mountstats'
+    MOUNTSTATS = '/host_proc/self/mountstats'
 
     def __init__(self, config, handlers):
         super(MountStatsCollector, self).__init__(config, handlers)
@@ -106,7 +106,7 @@ class MountStatsCollector(diamond.collector.Collector):
         return config
 
     def collect(self):
-        """Collect statistics from /proc/self/mountstats.
+        """Collect statistics from /host_proc/self/mountstats.
 
         Currently, we do fairly naive parsing and do not actually check
         the statvers value returned by mountstats.

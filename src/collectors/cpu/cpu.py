@@ -1,11 +1,11 @@
 # coding=utf-8
 
 """
-The CPUCollector collects CPU utilization metric using /proc/stat.
+The CPUCollector collects CPU utilization metric using /host_proc/stat.
 
 #### Dependencies
 
- * /proc/stat
+ * /host_proc/stat
 
 """
 
@@ -23,7 +23,7 @@ except ImportError:
 
 class CPUCollector(diamond.collector.Collector):
 
-    PROC = '/proc/stat'
+    PROC = '/host_proc/stat'
     INTERVAL = 1
 
     MAX_VALUES = {
@@ -168,7 +168,7 @@ class CPUCollector(diamond.collector.Collector):
             # Check for a bug in xen where the idle time is doubled for guest
             # See https://bugzilla.redhat.com/show_bug.cgi?id=624756
             if self.config['xenfix'] is None or self.config['xenfix'] is True:
-                if os.path.isdir('/proc/xen'):
+                if os.path.isdir('/host_proc/xen'):
                     total = 0
                     for metric_name in metrics.keys():
                         if 'cpu0.' in metric_name:

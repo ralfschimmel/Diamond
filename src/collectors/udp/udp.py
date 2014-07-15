@@ -5,7 +5,7 @@ The UDPCollector class collects metrics on UDP stats (surprise!)
 
 #### Dependencies
 
- * /proc/net/snmp
+ * /host_proc/net/snmp
 
 """
 
@@ -16,7 +16,7 @@ import os
 class UDPCollector(diamond.collector.Collector):
 
     PROC = [
-        '/proc/net/snmp'
+        '/host_proc/net/snmp'
     ]
 
     def __init__(self, config, handlers):

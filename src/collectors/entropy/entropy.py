@@ -1,11 +1,11 @@
 # coding=utf-8
 
 """
-Uses /proc to collect available entropty
+Uses /host_proc to collect available entropty
 
 #### Dependencies
 
- * /proc/sys/kernel/random/entropy_avail
+ * /host_proc/sys/kernel/random/entropy_avail
 
 """
 
@@ -15,7 +15,7 @@ import os
 
 class EntropyStatCollector(diamond.collector.Collector):
 
-    PROC = '/proc/sys/kernel/random/entropy_avail'
+    PROC = '/host_proc/sys/kernel/random/entropy_avail'
 
     def get_default_config(self):
         """

@@ -2,11 +2,11 @@
 
 """
 The NetworkCollector class collects metrics on network interface usage
-using /proc/net/dev.
+using /host_proc/net/dev.
 
 #### Dependencies
 
- * /proc/net/dev
+ * /host_proc/net/dev
 
 """
 
@@ -24,7 +24,7 @@ except ImportError:
 
 class NetworkCollector(diamond.collector.Collector):
 
-    PROC = '/proc/net/dev'
+    PROC = '/host_proc/net/dev'
 
     def get_default_config_help(self):
         config_help = super(NetworkCollector, self).get_default_config_help()

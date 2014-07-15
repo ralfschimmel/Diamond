@@ -42,7 +42,7 @@ Uses lsof to collect data on number of open files per user per type
 
 #### Dependencies
 
- * /proc/sys/fs/file-nr
+ * /host_proc/sys/fs/file-nr
  * /usr/sbin/lsof
 
 """
@@ -56,7 +56,7 @@ _RE = re.compile(r'(\d+)\s+(\d+)\s+(\d+)')
 
 class FilestatCollector(diamond.collector.Collector):
 
-    PROC = '/proc/sys/fs/file-nr'
+    PROC = '/host_proc/sys/fs/file-nr'
 
     def get_default_config_help(self):
         config_help = super(FilestatCollector, self).get_default_config_help()

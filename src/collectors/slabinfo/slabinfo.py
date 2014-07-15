@@ -2,11 +2,11 @@
 
 """
 The SlabInfoCollector collects metrics on process stats from
-/proc/slabinfo
+/host_proc/slabinfo
 
 #### Dependencies
 
- * /proc/slabinfo
+ * /host_proc/slabinfo
 
 """
 
@@ -27,7 +27,7 @@ else:
 
 class SlabInfoCollector(diamond.collector.Collector):
 
-    PROC = '/proc/slabinfo'
+    PROC = '/host_proc/slabinfo'
 
     def get_default_config_help(self):
         config_help = super(SlabInfoCollector, self).get_default_config_help()

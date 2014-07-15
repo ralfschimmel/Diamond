@@ -1,11 +1,11 @@
 # coding=utf-8
 
 """
-Uses /proc/loadavg to collect data on load average
+Uses /host_proc/loadavg to collect data on load average
 
 #### Dependencies
 
- * /proc/loadavg
+ * /host_proc/loadavg
 
 """
 
@@ -17,7 +17,7 @@ from diamond.collector import str_to_bool
 
 class LoadAverageCollector(diamond.collector.Collector):
 
-    PROC_LOADAVG = '/proc/loadavg'
+    PROC_LOADAVG = '/host_proc/loadavg'
     PROC_LOADAVG_RE = re.compile(r'([\d.]+) ([\d.]+) ([\d.]+) (\d+)/(\d+)')
 
     def get_default_config_help(self):
@@ -52,7 +52,7 @@ class LoadAverageCollector(diamond.collector.Collector):
             self.publish_gauge('load', load01, 2)
 
         # Legacy: add process/thread counters provided by
-        # /proc/loadavg (if available).
+        # /host_proc/loadavg (if available).
         if os.access(self.PROC_LOADAVG, os.R_OK):
             file = open(self.PROC_LOADAVG)
             for line in file:

@@ -3,7 +3,7 @@ from diamond import convertor
 
 import os
 
-procpath = '/proc/uptime'
+procpath = '/host_proc/uptime'
 metric_name = 'minutes'
 
 

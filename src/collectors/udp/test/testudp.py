@@ -37,10 +37,10 @@ class TestUDPCollector(CollectorTestCase):
     @patch('__builtin__.open')
     @patch.object(Collector, 'publish')
     def test_should_open_proc_net_snmp(self, publish_mock, open_mock):
-        UDPCollector.PROC = ['/proc/net/snmp']
+        UDPCollector.PROC = ['/host_proc/net/snmp']
         open_mock.return_value = StringIO('')
         self.collector.collect()
-        open_mock.assert_called_once_with('/proc/net/snmp')
+        open_mock.assert_called_once_with('/host_proc/net/snmp')
 
     @patch.object(Collector, 'publish')
     def test_should_work_with_real_data(self, publish_mock):

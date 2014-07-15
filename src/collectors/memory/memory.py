@@ -9,7 +9,7 @@ as memory is allocated to Buffers and Cache as well. See
 
 #### Dependencies
 
-* /proc/meminfo or psutil
+* /host_proc/meminfo or psutil
 
 """
 
@@ -43,7 +43,7 @@ _KEY_MAPPING = [
 
 class MemoryCollector(diamond.collector.Collector):
 
-    PROC = '/proc/meminfo'
+    PROC = '/host_proc/meminfo'
 
     def get_default_config_help(self):
         config_help = super(MemoryCollector, self).get_default_config_help()

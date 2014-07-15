@@ -2,11 +2,11 @@
 
 """
 The SoftInterruptCollector collects metrics on software interrupts from
-/proc/stat
+/host_proc/stat
 
 #### Dependencies
 
- * /proc/stat
+ * /host_proc/stat
 
 """
 
@@ -27,7 +27,7 @@ else:
 
 class SoftInterruptCollector(diamond.collector.Collector):
 
-    PROC = '/proc/stat'
+    PROC = '/host_proc/stat'
 
     def get_default_config_help(self):
         config_help = super(SoftInterruptCollector,
