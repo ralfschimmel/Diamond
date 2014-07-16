@@ -69,17 +69,17 @@ class NginxCollector(diamond.collector.Collector):
                     self.publish_gauge(
                         'active_connections',
                         int(activeConnectionsRE.match(l).group('conn')))
-                elif totalConnectionsRE.match(l):
-                    m = totalConnectionsRE.match(l)
-                    req_per_conn = float(m.group('req')) / float(m.group('acc'))
-                    self.publish_counter('conn_accepted', int(m.group('conn')))
-                    self.publish_counter('conn_handled', int(m.group('acc')))
-                    self.publish_counter('req_handled', int(m.group('req')))
-                    self.publish_gauge('req_per_conn', float(req_per_conn))
+                # elif totalConnectionsRE.match(l):
+                #     m = totalConnectionsRE.match(l)
+                #     req_per_conn = float(m.group('req')) / float(m.group('acc'))
+                #     self.publish_counter('conn_accepted', int(m.group('conn')))
+                #     self.publish_counter('conn_handled', int(m.group('acc')))
+                #     self.publish_counter('req_handled', int(m.group('req')))
+                #     self.publish_gauge('req_per_conn', float(req_per_conn))
                 elif connectionStatusRE.match(l):
                     m = connectionStatusRE.match(l)
-                    self.publish_gauge('act_reads', int(m.group('reading')))
-                    self.publish_gauge('act_writes', int(m.group('writing')))
+                    # self.publish_gauge('act_reads', int(m.group('reading')))
+                    # self.publish_gauge('act_writes', int(m.group('writing')))
                     self.publish_gauge('act_waits', int(m.group('waiting')))
         except IOError, e:
             self.log.error("Unable to open http://%s:%i%s",
