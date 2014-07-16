@@ -119,11 +119,7 @@ class HttpdCollector(diamond.collector.Collector):
 
     def _publish(self, nickname, key, value):
 
-        metrics = ['ReqPerSec', 'BytesPerSec', 'BytesPerReq', 'BusyWorkers',
-                   'Total Accesses', 'IdleWorkers', 'StartingWorkers',
-                   'ReadingWorkers', 'WritingWorkers', 'KeepaliveWorkers',
-                   'DnsWorkers', 'ClosingWorkers', 'LoggingWorkers',
-                   'FinishingWorkers', 'CleanupWorkers']
+        metrics = ['ReqPerSec', 'IdleWorkers']
 
         if key in metrics:
             # Get Metric Name
