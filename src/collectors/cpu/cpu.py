@@ -167,21 +167,21 @@ class CPUCollector(diamond.collector.Collector):
 
             # Check for a bug in xen where the idle time is doubled for guest
             # See https://bugzilla.redhat.com/show_bug.cgi?id=624756
-            if self.config['xenfix'] is None or self.config['xenfix'] is True:
-                if os.path.isdir('/host_proc/xen'):
-                    total = 0
-                    for metric_name in metrics.keys():
-                        if 'cpu0.' in metric_name:
-                            total += int(metrics[metric_name])
-                    if total > 110:
-                        self.config['xenfix'] = True
-                        for mname in metrics.keys():
-                            if '.idle' in mname:
-                                metrics[mname] = float(metrics[mname]) / 2
-                    elif total > 0:
-                        self.config['xenfix'] = False
-                else:
-                    self.config['xenfix'] = False
+            # if self.config['xenfix'] is None or self.config['xenfix'] is True:
+            #     if os.path.isdir('/host_proc/xen'):
+            #         total = 0
+            #         for metric_name in metrics.keys():
+            #             if 'cpu0.' in metric_name:
+            #                 total += int(metrics[metric_name])
+            #         if total > 110:
+            #             self.config['xenfix'] = True
+            #             for mname in metrics.keys():
+            #                 if '.idle' in mname:
+            #                     metrics[mname] = float(metrics[mname]) / 2
+            #         elif total > 0:
+            #             self.config['xenfix'] = False
+            #     else:
+            #         self.config['xenfix'] = False
 
             # Publish Metric Derivative
             for metric_name in metrics.keys():
@@ -189,58 +189,58 @@ class CPUCollector(diamond.collector.Collector):
                              metrics[metric_name])
             return True
 
-        else:
-            if not psutil:
-                self.log.error('Unable to import psutil')
-                self.log.error('No cpu metrics retrieved')
-                return None
-
-            cpu_time = psutil.cpu_times(True)
-            cpu_count = len(cpu_time)
-            total_time = psutil.cpu_times()
-            for i in range(0, len(cpu_time)):
-                metric_name = 'cpu' + str(i)
-                self.publish(metric_name + '.user',
-                             self.derivative(metric_name + '.user',
-                                             cpu_time[i].user,
-                                             self.MAX_VALUES['user']))
-                if hasattr(cpu_time[i], 'nice'):
-                    self.publish(metric_name + '.nice',
-                                 self.derivative(metric_name + '.nice',
-                                                 cpu_time[i].nice,
-                                                 self.MAX_VALUES['nice']))
-                self.publish(metric_name + '.system',
-                             self.derivative(metric_name + '.system',
-                                             cpu_time[i].system,
-                                             self.MAX_VALUES['system']))
-                self.publish(metric_name + '.idle',
-                             self.derivative(metric_name + '.idle',
-                                             cpu_time[i].idle,
-                                             self.MAX_VALUES['idle']))
-
-            metric_name = 'total'
-            self.publish(metric_name + '.user',
-                         self.derivative(metric_name + '.user',
-                                         total_time.user,
-                                         self.MAX_VALUES['user'])
-                         / cpu_count)
-            if hasattr(total_time, 'nice'):
-                self.publish(metric_name + '.nice',
-                             self.derivative(metric_name + '.nice',
-                                             total_time.nice,
-                                             self.MAX_VALUES['nice'])
-                             / cpu_count)
-            self.publish(metric_name + '.system',
-                         self.derivative(metric_name + '.system',
-                                         total_time.system,
-                                         self.MAX_VALUES['system'])
-                         / cpu_count)
-            self.publish(metric_name + '.idle',
-                         self.derivative(metric_name + '.idle',
-                                         total_time.idle,
-                                         self.MAX_VALUES['idle'])
-                         / cpu_count)
-
-            return True
+        # else:
+        #     if not psutil:
+        #         self.log.error('Unable to import psutil')
+        #         self.log.error('No cpu metrics retrieved')
+        #         return None
+        #
+        #     cpu_time = psutil.cpu_times(True)
+        #     cpu_count = len(cpu_time)
+        #     total_time = psutil.cpu_times()
+        #     for i in range(0, len(cpu_time)):
+        #         metric_name = 'cpu' + str(i)
+        #         self.publish(metric_name + '.user',
+        #                      self.derivative(metric_name + '.user',
+        #                                      cpu_time[i].user,
+        #                                      self.MAX_VALUES['user']))
+        #         if hasattr(cpu_time[i], 'nice'):
+        #             self.publish(metric_name + '.nice',
+        #                          self.derivative(metric_name + '.nice',
+        #                                          cpu_time[i].nice,
+        #                                          self.MAX_VALUES['nice']))
+        #         self.publish(metric_name + '.system',
+        #                      self.derivative(metric_name + '.system',
+        #                                      cpu_time[i].system,
+        #                                      self.MAX_VALUES['system']))
+        #         self.publish(metric_name + '.idle',
+        #                      self.derivative(metric_name + '.idle',
+        #                                      cpu_time[i].idle,
+        #                                      self.MAX_VALUES['idle']))
+        #
+        #     metric_name = 'total'
+        #     self.publish(metric_name + '.user',
+        #                  self.derivative(metric_name + '.user',
+        #                                  total_time.user,
+        #                                  self.MAX_VALUES['user'])
+        #                  / cpu_count)
+        #     if hasattr(total_time, 'nice'):
+        #         self.publish(metric_name + '.nice',
+        #                      self.derivative(metric_name + '.nice',
+        #                                      total_time.nice,
+        #                                      self.MAX_VALUES['nice'])
+        #                      / cpu_count)
+        #     self.publish(metric_name + '.system',
+        #                  self.derivative(metric_name + '.system',
+        #                                  total_time.system,
+        #                                  self.MAX_VALUES['system'])
+        #                  / cpu_count)
+        #     self.publish(metric_name + '.idle',
+        #                  self.derivative(metric_name + '.idle',
+        #                                  total_time.idle,
+        #                                  self.MAX_VALUES['idle'])
+        #                  / cpu_count)
+        #
+        #     return True
 
         return None
